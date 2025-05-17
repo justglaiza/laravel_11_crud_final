@@ -38,9 +38,9 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('uploads', $fileName, 'public'); // ✅ Stores in public/uploads
+            $filePath = $file->storeAs('uploads', $fileName, 'public');
 
-            $validated['image'] = $filePath; // ✅ Saves correct path to database
+            $validated['image'] = $filePath;
         }
 
         Product::create($validated);
@@ -65,29 +65,26 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
-    {
-        $validated = $request->validated();
+{
+    $validated = $request->validated();
 
-        // Handle Image Upload
-        if ($request->hasFile('image')) {
-            // Delete the old file
-            if ($product->image) {
-                Storage::delete($product->image);
-            }
-
-            // Store new image
-            $file = $request->file('image');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('uploads', $fileName, 'public');
-
-            $validated['image'] = $filePath;
+    if ($request->hasFile('image')) {
+        if ($product->image) {
+            Storage::delete($product->image);
         }
 
-        // Update the product (only one update call)
-        $product->update($validated);
+        $file = $request->file('image');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $filePath = $file->storeAs('uploads', $fileName, 'public');
 
-        return redirect()->back()->withSuccess('Product updated successfully.');
+        $validated['image'] = $filePath;
     }
+
+    // Update the product (only one update call)
+    $product->update($validated);
+
+    return redirect()->back()->withSuccess('Product updated successfully.');
+}
     /**
      * Remove the specified resource from storage.
      */

@@ -73,7 +73,6 @@ start"><strong>Description:</strong></label>
                         <label for="image"
                             class="col-md-4 col-form-label text-md-end text-start"><strong>Image:</strong></label>
                         <div class="col-md-6" style="line-height: 35px;">
-                            {{-- {{ dd(Storage::url($product->image)); }} --}}
                             @if ($product->image)
                                 <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}"
                                     class="img-fluid w-100">
