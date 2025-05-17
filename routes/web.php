@@ -15,7 +15,7 @@ Route::get('/dashboard', function () {
     return view('products.index', ['products' => $products]);
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('products', ProductController::class)->middleware(['auth']);
+Route::resource('products', ProductController::class);
 
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
