@@ -16,6 +16,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -27,6 +28,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        // dd('User created successfully');
 
         return redirect()->route('login')->with('success', 'Registration successful! Please login.');
     }
