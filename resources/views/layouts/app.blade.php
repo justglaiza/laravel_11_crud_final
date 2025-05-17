@@ -20,6 +20,39 @@ icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
 <div class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<div class="container-fluid">
+<a class="navbar-brand" href="/">Home</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav">
+<li class="nav-item">
+<a class="nav-link" href="{{ route('products.index') }}">Products</a>
+</li>
+</ul>
+<ul class="navbar-nav ms-auto">
+@auth
+<li class="nav-item">
+<form action="{{ route('logout') }}" method="POST">
+@csrf
+<button type="submit" class="btn btn-link nav-link">Logout</button>
+</form>
+</li>
+@else
+<li class="nav-item">
+<a class="nav-link" href="{{ route('login') }}">Login</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{{ route('register') }}">Register</a>
+</li>
+@endauth
+</ul>
+</div>
+</div>
+</nav>
+
 <h3 class=" mt-3">Simple Laravel 11 CRUD Application
 Tutorial</h3>
 @yield('content')
