@@ -16,6 +16,7 @@ Schema::create('products', function (Blueprint $table) {
     $table->integer('quantity');
     $table->decimal('price', 8, 2);
     $table->text('description')->nullable();
+    $table->string('image')->nullable();
     $table->timestamps();
 });
 }
