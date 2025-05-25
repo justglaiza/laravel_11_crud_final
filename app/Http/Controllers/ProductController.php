@@ -23,7 +23,7 @@ class ProductController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     */
+     */    
     public function create(): View
     {
         return view('products.create');
@@ -38,9 +38,9 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('uploads', $fileName, 'public'); // ✅ Stores in public/uploads
+            $filePath = $file->storeAs('uploads', $fileName, 'public'); 
 
-            $validated['image'] = $filePath; // ✅ Saves correct path to database
+            $validated['image'] = $filePath; 
         }
 
         Product::create($validated);

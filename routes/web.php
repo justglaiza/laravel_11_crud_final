@@ -5,15 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Models\Product;
 
 Route::get('/', function () {
-    return view('welcome', [
-        'products' => Product::latest()->paginate(4)
-    ]);
+    return redirect()->route('login');
 });
-
-Route::get('/dashboard', function () {
-    $products = Product::paginate(10);
-    return view('products.index', ['products' => $products]);
-})->middleware(['auth'])->name('dashboard');
 
 Route::resource('products', ProductController::class)->middleware(['auth']);
 

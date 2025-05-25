@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class AuthController extends Controller
 {
@@ -14,7 +15,7 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(Request $request): RedirectResponse
     {
         // dd($request->all());
         $request->validate([
@@ -30,7 +31,8 @@ class AuthController extends Controller
         ]);
         // dd('User created successfully');
 
-        return redirect()->route('login')->with('success', 'Registration successful! Please login.');
+        return redirect()->route('login')
+        ->with('success', 'Registration successful! Please login.');
     }
 
     public function showLoginForm()
@@ -38,7 +40,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -47,7 +49,8 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('dashboard')->with('success', 'Login successful!');
+            // Redirect to products index after login
+            return redirect()->route('products.index')->with('success', 'Login successful!');
         }
 
         return back()->withErrors([
